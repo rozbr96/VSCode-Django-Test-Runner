@@ -27,7 +27,7 @@ interface REMatchGroup {
 
 
 class TestsRunnerCodeLensProvider implements CodeLensProvider {
-    DEFINITION_MATCH = /\s*(?<token>def|class)\s+(test_)?\w+[:()]/;
+    DEFINITION_MATCH = /(?<token>def|class)\s+(?:(?<=def\s+)test_|(?<=class\s+))\w+[:(]/;
 
     provideCodeLenses(document: TextDocument): ProviderResult<CodeLens[]> {
         const lens: CodeLens[] = [];
