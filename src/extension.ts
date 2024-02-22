@@ -130,7 +130,7 @@ class TestRunner {
         "",
         editor.document.uri
       );
-      if (!terminal) {
+      if (!terminal || terminal.exitStatus) {
         terminal = vscode.window.createTerminal("djangoTestRunner");
       }
       terminal.show();
