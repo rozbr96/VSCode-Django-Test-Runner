@@ -19,12 +19,7 @@
         "tests"
     ],
     "activationEvents": [
-        "onLanguage:python",
-        "onCommand:python.djangoTestRunner.runMethodTests",
-        "onCommand:python.djangoTestRunner.runClassTests",
-        "onCommand:python.djangoTestRunner.runFileTests",
-        "onCommand:python.djangoTestRunner.runAppTests",
-        "onCommand:python.djangoTestRunner.runPreviousTests"
+        "onLanguage:python"
     ],
     "main": "./out/extension",
     "contributes": {
