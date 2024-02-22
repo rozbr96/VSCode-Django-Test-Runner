@@ -1,5 +1,8 @@
 import * as vscode from "vscode";
 
+import TestsRunnerCodeLensProvider from "./tests_runner_code_lens_provider";
+
+
 const METHOD_REGEX = /(\s*)def\s+(test_\w+)\s?\(/i;
 const CLASS_REGEX = /(\s*)class\s+(\w+)/i;
 
@@ -202,7 +205,12 @@ export function activate(context: vscode.ExtensionContext) {
     ),
     vscode.commands.registerCommand("python.djangoTestRunner.runAppTests", () => {
       tester.runAppTests();
-    })
+    }),
+    vscode.languages.registerCodeLensProvider(
+      {
+        language: "python", pattern: "**/test_*.py"
+      }, new TestsRunnerCodeLensProvider()
+    )
   );
 }
 
