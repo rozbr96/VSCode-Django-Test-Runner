@@ -56,13 +56,19 @@ class TestRunner {
     if (!currentWorkspacePath) {
       return;
     }
+
+    const config = vscode.workspace.getConfiguration("", editor.document.uri)
+    const testsRootDir = config.get("python.djangoTestRunner.testsRootDir", "")
+    const testsRootDirRE = new RegExp(`^${testsRootDir}\\.`)
+
     this.filePath = currentDocument.fileName
       .replace(currentWorkspacePath.uri.fsPath, "")
       .replace(".py", "")
       .replace(/\//g, ".")
       .replace(/\\/g, ".")
       .replace(/\\\\/g, ".")
-      .substring(1);
+      .substring(1)
+      .replace(testsRootDirRE, "");
   }
 
   updateClassAndMethodPath(): void {
