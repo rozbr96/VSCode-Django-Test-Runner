@@ -14,6 +14,7 @@ class TestRunner {
   className: string = "";
   filePath: string = "";
   lastRanTestPath: string = "";
+  targetRange: vscode.Range | undefined;
 
   constructor() {
   }
@@ -82,9 +83,10 @@ class TestRunner {
 
       if (currentWorkspacePath) {
         const position = editor.selection.active;
+        const targetRange = this.targetRange || new vscode.Range(0, 0, position.line + 1, 0);
 
         const lines = currentDocument
-          .getText(new vscode.Range(0, 0, position.line + 1, 0))
+          .getText(targetRange)
           .split(/[\r\n]+/)
           .reverse();
 
@@ -188,28 +190,33 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "python.djangoTestRunner.runPreviousTests",
       () => {
+        tester.targetRange = undefined;
         tester.runPreviousTests();
       }
     ),
     vscode.commands.registerCommand(
       "python.djangoTestRunner.runMethodTests",
-      () => {
+      (range?: vscode.Range) => {
+        tester.targetRange = range;
         tester.runMethodTests();
       }
     ),
     vscode.commands.registerCommand(
       "python.djangoTestRunner.runClassTests",
-      () => {
+      (range?: vscode.Range) => {
+        tester.targetRange = range;
         tester.runClassTests();
       }
     ),
     vscode.commands.registerCommand(
       "python.djangoTestRunner.runFileTests",
       () => {
+        tester.targetRange = undefined;
         tester.runFileTests();
       }
     ),
     vscode.commands.registerCommand("python.djangoTestRunner.runAppTests", () => {
+      tester.targetRange = undefined;
       tester.runAppTests();
     }),
     vscode.languages.registerCodeLensProvider(

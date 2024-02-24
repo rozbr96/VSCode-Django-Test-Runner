@@ -47,6 +47,7 @@ class TestsRunnerCodeLensProvider implements CodeLensProvider {
             let command = {
                 title: TITLES[token],
                 command: COMMANDS[token],
+                arguments: [new Range(0, 0, lineIndex + 1, 0)]
             } as Command;
 
             lens.push(new CodeLens(range, command));
